@@ -1,0 +1,12 @@
+# Fichiers compilés
+*.exe
+*.o
+*.obj
+*.out
+
+# Dossiers de build (si vous en créez un plus tard)
+build/
+bin/
+
+# Fichiers temporaires Windows
+Thumbs.db
