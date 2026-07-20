@@ -3,7 +3,8 @@
 *.o
 *.obj
 *.out
-
+*.depend
+*.layout
 # Dossiers de build (si vous en créez un plus tard)
 build/
 bin/
