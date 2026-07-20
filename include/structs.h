@@ -23,7 +23,7 @@ typedef struct {
     int id;                      /* id auto-incremente */
     char nomComplet[100];
     char nationalite[50];
-    char dateNaissance[11];      /* format "JJ/MM/AAAA" */
+    char dateNaissance[12];      /* format "JJ/MM/AAAA" */
     char biographie[300];
     int nombreLivresPublies;
 } Author;
@@ -36,7 +36,7 @@ typedef struct {
     int id;
     char libelle[50];
     char description[200];
-    char dateCreation[11];       /* format "JJ/MM/AAAA" */
+    char dateCreation[12];       /* format "JJ/MM/AAAA" */
 } Category;
 
 
@@ -57,7 +57,7 @@ typedef struct {
     int nombreExemplairesDisponibles;
     char emplacement[50];
     char resume[300];
-    char dateAjout[11];
+    char dateAjout[12];
 } Book;
 
 
@@ -68,7 +68,7 @@ typedef struct {
     int id;
     int idUtilisateur;
     int idLivre;
-    char dateReservation[11];
+    char dateReservation[12];
     char etat[15];   /* "EN_ATTENTE", "DISPONIBLE" ou "ANNULEE" */
 } Reservation;
 
@@ -81,8 +81,8 @@ typedef struct {
     char numeroEmprunt[20];   /* format "EMP_AAAAMMJJHHMMSS" */
     int idUtilisateur;
     int idLivre;
-    char dateEmprunt[11];
-    char dateRetourPrevue[11];
+    char dateEmprunt[12];
+    char dateRetourPrevue[12];
     char etat[15];   /* "EN_COURS", "RETOURNE" ou "EN_RETARD" */
 } Borrow;
 
@@ -93,7 +93,7 @@ typedef struct {
 typedef struct {
     int id;
     int idEmprunt;
-    char dateRetourReelle[11];
+    char dateRetourReelle[12];
     int nombreJoursRetard;
     int montantPenalite;   /* en FCFA */
 } Return;
@@ -113,8 +113,8 @@ typedef struct {
     char motDePasse[100];       /* stocke crypte */
     char role[10];               /* "ADMIN" ou "USER" */
     char etat[10];                /* "ACTIF" ou "BLOQUE" */
-    char dateCreation[11];
-    char dateDerniereConnexion[11];
+    char dateCreation[12];
+    char dateDerniereConnexion[12];
     int doitChangerMotDePasse;   /* 1 = oui (premiere connexion), 0 = non */
 } User;
 
@@ -128,7 +128,7 @@ typedef struct {
     int idEmprunt;
     int nombreJoursRetard;
     int montant;      /* en FCFA */
-    char date[11];
+    char date[12];
 } Penalty;
 
 
