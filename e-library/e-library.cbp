@@ -31,6 +31,15 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="../include/Emprunt.h" />
+		<Unit filename="../include/Retour.h" />
+		<Unit filename="../include/structs.h" />
+		<Unit filename="../src/Emprunt.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/Retour.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
