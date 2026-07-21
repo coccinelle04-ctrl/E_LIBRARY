@@ -1,0 +1,39 @@
+# depslib dependency file v1.0
+1784661203 source:c:\users\pc\desktop\e_library\src\tracabilites.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"../include/tracabilites.h"
+
+1784657964 c:\users\pc\desktop\e_library\include\tracabilites.h
+
+1784661446 source:c:\users\pc\desktop\e_library\e-library\main.c
+	<stdio.h>
+	<stdlib.h>
+	"../include/tracabilites.h"
+	"../include/penalites.h"
+	"../include/statistiques.h"
+
+1784661541 source:c:\users\pc\desktop\e_library\src\statistiques.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"../include/statistiques.h"
+	"../include/penalites.h"
+	"../include/structs.h"
+
+1784660941 source:c:\users\pc\desktop\e_library\src\penalites.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"../include/penalites.h"
+
+1784660941 c:\users\pc\desktop\e_library\include\penalites.h
+	"structs.h"
+
+1784633165 c:\users\pc\desktop\e_library\include\structs.h
+
+1784661042 c:\users\pc\desktop\e_library\include\statistiques.h
+
