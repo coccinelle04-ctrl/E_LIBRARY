@@ -1,5 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "../include/books.h"
+#include "../include/reservations.h"
+#include "../include/menu.h"
+
 
 #include "../include/tracabilites.h"
 #include "../include/penalites.h"
@@ -8,7 +10,7 @@
 int main()
 {
     int choix;
-    int idUser, idEmp, jours; // 'montant' retiré car calculé en interne
+    int idUser, idEmp, jours; // 'montant' retirï¿½ car calculï¿½ en interne
     char login[20];
     char operation[100];
 
@@ -42,7 +44,7 @@ int main()
             printf("Nombre de jours de retard : ");
             scanf("%d", &jours);
 
-            // Appel mis à jour (le montant est géré automatiquement par la fonction)
+            // Appel mis ï¿½ jour (le montant est gï¿½rï¿½ automatiquement par la fonction)
             ajouterPenalite(idUser, idEmp, jours);
             break;
 
