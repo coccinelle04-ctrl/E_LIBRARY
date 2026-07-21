@@ -1,0 +1,13 @@
+========== RAPPORT JOURNALIER ==========
+
+Nombre d'emprunts : 0
+Nombre de retours : 0
+Nombre de reservations : 0
+Nombre de nouveaux utilisateurs : 0
+Nombre de penalites : 1
+Montant total des penalites : 2500 FCFA
+
+Livre le plus emprunte : Non calcule
+Utilisateur le plus actif : Non calcule
+
+========================================
