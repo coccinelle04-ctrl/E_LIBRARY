@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "categories.h"
+#include "../include/categories.h"
 
 #define FICHIER_CATEGORIES "DATABASE/CATEGORIES.dat"
 void ajouterCategorie() {

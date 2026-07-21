@@ -1,8 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "../include/books.h"
+#include "../include/reservations.h"
+#include "../include/menu.h"
 
-int main()
-{
-    printf("Hello world!\n");
+int main() {
+    initBooks();
+    initReservations();
+    lancerMenu();
     return 0;
 }

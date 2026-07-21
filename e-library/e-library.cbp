@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="C:/Users/admin/Desktop/E-LIBRARY-ISI-DAKAR/e-library/../include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -31,6 +32,23 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="../include/authors.h" />
+		<Unit filename="../include/books.h" />
+		<Unit filename="../include/categories.h" />
+		<Unit filename="../include/reservations.h" />
+		<Unit filename="../include/structs.h" />
+		<Unit filename="../src/authors.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/books.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/categories.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/reservations.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
