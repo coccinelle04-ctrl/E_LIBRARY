@@ -39,3 +39,24 @@
 1784569534 c:\users\admin\desktop\e_library\include\structureutilisateur.h
 	"structs.h"
 
+1784658349 source:c:\users\fatou seck\desktop\e_library\src\emprunt.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"../include/Emprunt.h"
+
+1784658136 c:\users\fatou seck\desktop\e_library\include\emprunt.h
+	"structs.h"
+
+1784583831 c:\users\fatou seck\desktop\e_library\include\structs.h
+
+1784658135 source:c:\users\fatou seck\desktop\e_library\src\retour.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../include/Retour.h"
+
+1784658133 c:\users\fatou seck\desktop\e_library\include\retour.h
+	"structs.h"
+
