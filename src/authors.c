@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "authors.h"
+#include "../include/authors.h"
 
 #define FICHIER_AUTEURS "DATABASE/AUTHORS.dat"
 
