@@ -43,11 +43,11 @@
 		</Unit>
 		<Unit filename="src/test_authors.c">
 			<Option compilerVar="CC" />
+			<Option compile="0" />
+			<Option link="0" />
 		</Unit>
 		<Unit filename="src/test_categories.c">
 			<Option compilerVar="CC" />
-			<Option compile="0" />
-			<Option link="0" />
 		</Unit>
 		<Extensions />
 	</Project>
