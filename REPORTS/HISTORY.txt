@@ -7,3 +7,8 @@
 [22/07/2026 04:48:03] ADMINX Connexion au systeme
 [22/07/2026 05:09:03] ADMINX Connexion au systeme
 [22/07/2026 05:19:06] ADMINX Connexion au systeme
+[22/07/2026 12:06:35] ADMINX Connexion au systeme
+[22/07/2026 12:07:09] ADMINX Ajout d'un auteur
+[22/07/2026 12:07:49] ADMINX Modification d'un auteur
+[22/07/2026 12:08:02] ADMINX Suppression d'un auteur
+[22/07/2026 12:09:05] ADMINX Creation d'un emprunt
