@@ -46,20 +46,22 @@ void genererNumeroEmpruntManuel(Borrow *emp) {
     // Format date simple "JJ/MM/AAAA" pour dateEmprunt
     sprintf(emp->dateEmprunt, "%02d/%02d/%04d", jour, mois, annee);
 
-    // Calcul de la date de retour prévue (+14 jours simplification)
-    int jourRetour = jour + 14;
-    int moisRetour = mois;
-    int anneeRetour = annee;
+    // Calcul precis de la date de retour prevue (+14 jours) avec <time.h>
+        struct tm dateEmpruntStruct = {0};
+        dateEmpruntStruct.tm_year = annee - 1900;
+        dateEmpruntStruct.tm_mon = mois - 1;
+        dateEmpruntStruct.tm_mday = jour;
+        dateEmpruntStruct.tm_hour = 12;
 
-    if (jourRetour > 30) { // Simplification gestion mois de 30 jours
-        jourRetour -= 30;
-        moisRetour++;
-        if (moisRetour > 12) {
-            moisRetour = 1;
-            anneeRetour++;
-        }
-    }
-    sprintf(emp->dateRetourPrevue, "%02d/%02d/%04d", jourRetour, moisRetour, anneeRetour);
+        time_t tEmprunt = mktime(&dateEmpruntStruct);
+        time_t tRetour = tEmprunt + (14 * 24 * 60 * 60);
+
+        struct tm *dateRetourStruct = localtime(&tRetour);
+
+        sprintf(emp->dateRetourPrevue, "%02d/%02d/%04d",
+        dateRetourStruct->tm_mday,
+        dateRetourStruct->tm_mon + 1,
+        dateRetourStruct->tm_year + 1900);
 
     printf("Numero généré : %s\n", emp->numeroEmprunt);
     printf("Date retour prévue (+14j) : %s\n", emp->dateRetourPrevue);

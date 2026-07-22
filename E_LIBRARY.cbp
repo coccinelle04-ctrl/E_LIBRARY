@@ -32,13 +32,59 @@
 			<Add option="-Wall" />
 			<Add directory="C:/Users/bmd tech/Desktop/E_LIBRARY/include" />
 		</Compiler>
+		<Unit filename="include/Emprunt.h" />
+		<Unit filename="include/Retour.h" />
 		<Unit filename="include/authors.h" />
+		<Unit filename="include/books.h" />
 		<Unit filename="include/categories.h" />
+		<Unit filename="include/contraintesdacces.h" />
+		<Unit filename="include/menu.h" />
+		<Unit filename="include/penalites.h" />
+		<Unit filename="include/reservations.h" />
+		<Unit filename="include/securitedesmotsdepasse.h" />
+		<Unit filename="include/statistiques.h" />
 		<Unit filename="include/structs.h" />
+		<Unit filename="include/structureutilisateur.h" />
+		<Unit filename="include/tracabilites.h" />
+		<Unit filename="src/Emprunt.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/Retour.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="src/authors.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="src/books.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="src/categories.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/contraintesdacces.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/menu.c">
+			<Option compilerVar="CC" />
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="src/penalites.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/reservations.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/securitedesmotsdepasse.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/statistiques.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/structureutilisateur.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/test_authors.c">
@@ -46,7 +92,22 @@
 			<Option compile="0" />
 			<Option link="0" />
 		</Unit>
+		<Unit filename="src/test_books.c">
+			<Option compilerVar="CC" />
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
 		<Unit filename="src/test_categories.c">
+			<Option compilerVar="CC" />
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="src/test_global.c">
+			<Option compilerVar="CC" />
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="src/tracabilites.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions />

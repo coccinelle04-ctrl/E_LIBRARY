@@ -168,7 +168,7 @@ int seConnecter(User *connecte) {
 /* ============================================================
    Sous-menu : Gestion des auteurs
    ============================================================ */
-void menuAuteurs() {
+void menuAuteurs(User connecte) {
     int choix;
     do {
         system("cls");
@@ -182,10 +182,19 @@ void menuAuteurs() {
         scanf("%d", &choix);
         getchar();
 
-        if (choix == 1) ajouterAuteur();
+            if (choix == 1) {
+            ajouterAuteur();
+            enregistrerHistorique(connecte.login, "Ajout d'un auteur");
+        }
         else if (choix == 2) afficherTousAuteurs();
-        else if (choix == 3) modifierAuteur();
-        else if (choix == 4) supprimerAuteur();
+        else if (choix == 3) {
+            modifierAuteur();
+            enregistrerHistorique(connecte.login, "Modification d'un auteur");
+        }
+        else if (choix == 4) {
+            supprimerAuteur();
+            enregistrerHistorique(connecte.login, "Suppression d'un auteur");
+        }
 
         if (choix != 0) pause();
     } while (choix != 0);
@@ -194,7 +203,7 @@ void menuAuteurs() {
 /* ============================================================
    Sous-menu : Gestion des categories
    ============================================================ */
-void menuCategories() {
+void menuCategories(User connecte) {
     int choix;
     do {
         system("cls");
@@ -208,10 +217,19 @@ void menuCategories() {
         scanf("%d", &choix);
         getchar();
 
-        if (choix == 1) ajouterCategorie();
+        if (choix == 1) {
+            ajouterCategorie();
+            enregistrerHistorique(connecte.login, "Ajout d'une categorie");
+        }
         else if (choix == 2) afficherToutesCategories();
-        else if (choix == 3) modifierCategorie();
-        else if (choix == 4) supprimerCategorie();
+        else if (choix == 3) {
+            modifierCategorie();
+            enregistrerHistorique(connecte.login, "Modification d'une categorie");
+        }
+        else if (choix == 4) {
+            supprimerCategorie();
+            enregistrerHistorique(connecte.login, "Suppression d'une categorie");
+        }
 
         if (choix != 0) pause();
     } while (choix != 0);
@@ -220,7 +238,7 @@ void menuCategories() {
 /* ============================================================
    Sous-menu : Gestion des livres et reservations
    ============================================================ */
-void menuLivres() {
+void menuLivres(User connecte) {
     int choix;
     do {
         system("cls");
@@ -239,6 +257,7 @@ void menuLivres() {
             Book b = saisirLivre();
             if (ajouterLivre(b) == 1) {
                 printf("\nLivre ajoute avec succes !\n");
+                enregistrerHistorique(connecte.login, "Ajout d'un livre");
             } else {
                 printf("\nEchec de l'ajout du livre.\n");
             }
@@ -249,6 +268,7 @@ void menuLivres() {
             printf("Id du livre a supprimer : ");
             scanf("%d", &id);
             supprimerLivre(id);
+            enregistrerHistorique(connecte.login, "Suppression d'un livre");
         }
         else if (choix == 4) afficherReservations();
         else if (choix == 5) {
@@ -258,6 +278,7 @@ void menuLivres() {
             printf("Id livre : ");
             scanf("%d", &idLivre);
             creerReservation(idUser, idLivre);
+            enregistrerHistorique(connecte.login, "Creation d'une reservation");
         }
 
         if (choix != 0) pause();
@@ -285,6 +306,7 @@ void menuEmprunts(User connecte) {
             if (saisirEmprunt(&emp) == 1) {
             enregistrerEmprunt(emp);
             genererRecuEmprunt(emp, connecte.login);
+            enregistrerHistorique(connecte.login, "Creation d'un emprunt");
         } else {
             printf("\nEmprunt annule.\n");
         }
@@ -299,7 +321,7 @@ void menuEmprunts(User connecte) {
 /* ============================================================
    Sous-menu : Gestion des utilisateurs (reserve a l'admin)
    ============================================================ */
-void menuUtilisateurs() {
+void menuUtilisateurs(User connecte) {
     int choix;
     do {
         system("cls");
@@ -354,6 +376,7 @@ void menuUtilisateurs() {
 
             initialiserUtilisateur(&u, nom, prenom, telephone, adresse, email, login, role);
             sauvegarderUtilisateur(&u);
+            enregistrerHistorique(connecte.login, "Creation d'un utilisateur");
             printf("\nUtilisateur cree ! Mot de passe par defaut : Library123\n");
         }
         else if (choix == 2) afficherTousUtilisateurs();
@@ -407,11 +430,11 @@ void menuAdmin(User connecte) {
         scanf("%d", &choix);
         getchar();
 
-        if (choix == 1) menuAuteurs();
-        else if (choix == 2) menuCategories();
-        else if (choix == 3) menuLivres();
+        if (choix == 1) menuAuteurs(connecte);
+        else if (choix == 2) menuCategories(connecte);
+        else if (choix == 3) menuLivres(connecte);
         else if (choix == 4) menuEmprunts(connecte);
-        else if (choix == 5) menuUtilisateurs();
+        else if (choix == 5) menuUtilisateurs(connecte);
         else if (choix == 6) menuPenalitesEtStats();
 
     } while (choix != 0);
