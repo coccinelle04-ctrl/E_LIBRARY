@@ -101,7 +101,6 @@ void genererRecuRetour(Return ret, const char *numeroEmprunt, const char *loginU
     char dateSansSlash[20];
     int j = 0;
 
-    /* On construit un nom de fichier simple a partir de la date/heure actuelle */
     time_t t = time(NULL);
     struct tm *date = localtime(&t);
     sprintf(dateSansSlash, "%04d%02d%02d%02d%02d%02d",

@@ -12,7 +12,6 @@ void enregistrerHistorique(char login[], char operation[])
     t = time(NULL);
     date = localtime(&t);
 
-    // Note importante : assurez-vous que le dossier REPORTS/ existe bien avant d'écrire dedans.
     f = fopen("REPORTS/HISTORY.txt", "a");
     if(f == NULL)
     {
@@ -20,7 +19,6 @@ void enregistrerHistorique(char login[], char operation[])
         return;
     }
 
-    // Format strict respecté : [Date Heure] Login Opération réalisée[span_1](start_span)[span_1](end_span)
     fprintf(f,
             "[%02d/%02d/%04d %02d:%02d:%02d] %s %s\n",
             date->tm_mday,

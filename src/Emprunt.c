@@ -6,10 +6,9 @@
 #include "books.h"
 #include "structureutilisateur.h"
 
-// Calcule le prochain ID auto-incrémenté pour BORROWS.dat
 int obtenirProchainIDEmprunt() {
     FILE *file = fopen("DATABASE/BORROWS.dat", "rb");
-    if (file == NULL) return 1; // Premier ID si le fichier n'existe pas
+    if (file == NULL) return 1;
 
     Borrow emp;
     int maxID = 0;
@@ -39,14 +38,11 @@ void genererNumeroEmpruntManuel(Borrow *emp) {
     printf("Entrer la seconde (SS) : ");
     scanf("%d", &seconde);
 
-    // Format EMP_AAAAMMJJHHMMSS
     sprintf(emp->numeroEmprunt, "EMP_%04d%02d%02d%02d%02d%02d",
             annee, mois, jour, heure, minute, seconde);
 
-    // Format date simple "JJ/MM/AAAA" pour dateEmprunt
     sprintf(emp->dateEmprunt, "%02d/%02d/%04d", jour, mois, annee);
 
-    // Calcul precis de la date de retour prevue (+14 jours) avec <time.h>
         struct tm dateEmpruntStruct = {0};
         dateEmpruntStruct.tm_year = annee - 1900;
         dateEmpruntStruct.tm_mon = mois - 1;
@@ -136,7 +132,6 @@ void genererRecuEmprunt(Borrow emp, const char *loginUtilisateur) {
     char chemin[150];
     sprintf(chemin, "REPORTS/BORROWS/BORROW_%s_%s.txt",
             emp.numeroEmprunt + 4, loginUtilisateur);
-    /* emp.numeroEmprunt commence par "EMP_", on saute ces 4 caracteres avec +4 */
 
     FILE *f = fopen(chemin, "w");
     if (f == NULL) {

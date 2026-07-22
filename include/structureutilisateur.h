@@ -14,4 +14,4 @@ int rechercherUtilisateurParId(int id, User *resultat);
 int rechercherUtilisateurParLogin(const char *login, User *resultat);
 void afficherTousUtilisateurs();
 
-#endif /* STRUCTUREUTILISATEUR_H */
+#endif

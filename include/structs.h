@@ -1,54 +1,29 @@
-/*
- * ============================================================
- *  structs.h
- *  Fichier COMMUN a toute l'equipe - Projet E-LIBRARY ISI DAKAR
- * ============================================================
- *  Ce fichier contient TOUTES les structures utilisees dans le
- *  projet. Chaque membre doit inclure ce fichier dans son .c
- *  avec : #include "structs.h"
- *
- *  IMPORTANT : Ne modifiez pas une structure qui n'est pas la
- *  votre sans en parler au reste de l'equipe, sinon ca casse
- *  le travail des autres !
- * ============================================================
- */
 
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
-/* ------------------------------------------------------------
-   1. AUTEURS (Massamba)
------------------------------------------------------------- */
 typedef struct {
-    int id;                      /* id auto-incremente */
+    int id;
     char nomComplet[100];
     char nationalite[50];
-    char dateNaissance[12];      /* format "JJ/MM/AAAA" */
+    char dateNaissance[12];
     char biographie[300];
     int nombreLivresPublies;
 } Author;
 
-
-/* ------------------------------------------------------------
-   2. CATEGORIES (Massamba)
------------------------------------------------------------- */
 typedef struct {
     int id;
     char libelle[50];
     char description[200];
-    char dateCreation[12];       /* format "JJ/MM/AAAA" */
+    char dateCreation[12];
 } Category;
 
-
-/* ------------------------------------------------------------
-   3. LIVRES (Fatou Ngom)
------------------------------------------------------------- */
 typedef struct {
     int id;
-    char isbn[20];                       /* unique */
+    char isbn[20];
     char titre[150];
-    int idAuteur;                        /* doit exister dans AUTHORS.dat */
-    int idCategorie;                     /* doit exister dans CATEGORIES.dat */
+    int idAuteur;
+    int idCategorie;
     char editeur[100];
     int anneePublication;
     char langue[30];
@@ -60,48 +35,32 @@ typedef struct {
     char dateAjout[12];
 } Book;
 
-
-/* ------------------------------------------------------------
-   4. RESERVATIONS (Fatou Ngom)
------------------------------------------------------------- */
 typedef struct {
     int id;
     int idUtilisateur;
     int idLivre;
     char dateReservation[12];
-    char etat[15];   /* "EN_ATTENTE", "DISPONIBLE" ou "ANNULEE" */
+    char etat[15];
 } Reservation;
 
-
-/* ------------------------------------------------------------
-   5. EMPRUNTS (Fatou Seck)
------------------------------------------------------------- */
 typedef struct {
     int id;
-    char numeroEmprunt[20];   /* format "EMP_AAAAMMJJHHMMSS" */
+    char numeroEmprunt[20];
     int idUtilisateur;
     int idLivre;
     char dateEmprunt[12];
     char dateRetourPrevue[12];
-    char etat[15];   /* "EN_COURS", "RETOURNE" ou "EN_RETARD" */
+    char etat[15];
 } Borrow;
 
-
-/* ------------------------------------------------------------
-   6. RETOURS (Fatou Seck)
------------------------------------------------------------- */
 typedef struct {
     int id;
     int idEmprunt;
     char dateRetourReelle[12];
     int nombreJoursRetard;
-    int montantPenalite;   /* en FCFA */
+    int montantPenalite;
 } Return;
 
-
-/* ------------------------------------------------------------
-   7. UTILISATEURS (Diarra)
------------------------------------------------------------- */
 typedef struct {
     int id;
     char nom[50];
@@ -109,25 +68,21 @@ typedef struct {
     char telephone[20];
     char adresse[100];
     char email[100];
-    char login[7];              /* 6 lettres majuscules + '\0' */
-    char motDePasse[100];       /* stocke crypte */
-    char role[10];               /* "ADMIN" ou "USER" */
-    char etat[10];                /* "ACTIF" ou "BLOQUE" */
+    char login[7];
+    char motDePasse[100];
+    char role[10];
+    char etat[10];
     char dateCreation[12];
     char dateDerniereConnexion[12];
-    int doitChangerMotDePasse;   /* 1 = oui (premiere connexion), 0 = non */
+    int doitChangerMotDePasse;
 } User;
 
-
-/* ------------------------------------------------------------
-   8. PENALITES (Arame Gueye)
------------------------------------------------------------- */
 typedef struct {
     int id;
     int idUtilisateur;
     int idEmprunt;
     int nombreJoursRetard;
-    int montant;      /* en FCFA */
+    int montant;
     char date[12];
 } Penalty;
 
