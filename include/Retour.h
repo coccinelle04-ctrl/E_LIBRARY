@@ -3,5 +3,6 @@
 #include "structs.h"
 
 void retournerLivre();
+void genererRecuRetour(Return ret, const char *numeroEmprunt, const char *loginUtilisateur);
 
 #endif

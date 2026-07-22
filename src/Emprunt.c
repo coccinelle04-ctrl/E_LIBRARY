@@ -3,10 +3,12 @@
 #include <string.h>
 #include <time.h>
 #include "../include/Emprunt.h"
+#include "books.h"
+#include "structureutilisateur.h"
 
 // Calcule le prochain ID auto-incrémenté pour BORROWS.dat
 int obtenirProchainIDEmprunt() {
-    FILE *file = fopen("../DATABASE/BORROWS.dat", "rb");
+    FILE *file = fopen("DATABASE/BORROWS.dat", "rb");
     if (file == NULL) return 1; // Premier ID si le fichier n'existe pas
 
     Borrow emp;
@@ -63,23 +65,63 @@ void genererNumeroEmpruntManuel(Borrow *emp) {
     printf("Date retour prévue (+14j) : %s\n", emp->dateRetourPrevue);
 }
 
-void saisirEmprunt(Borrow *emp) {
+int compterEmpruntsEnCours(int idUtilisateur) {
+    FILE *file = fopen("DATABASE/BORROWS.dat", "rb");
+    if (file == NULL) return 0;
+
+    Borrow emp;
+    int compteur = 0;
+    while (fread(&emp, sizeof(Borrow), 1, file) == 1) {
+        if (emp.idUtilisateur == idUtilisateur && strcmp(emp.etat, "EN_COURS") == 0) {
+            compteur++;
+        }
+    }
+    fclose(file);
+    return compteur;
+}
+
+int saisirEmprunt(Borrow *emp) {
     printf("\n--- NOUVEL EMPRUNT ---\n");
-    emp->id = obtenirProchainIDEmprunt();
-    printf("ID attribué (auto) : %d\n", emp->id);
 
     printf("Entrez l'ID de l'utilisateur : ");
     scanf("%d", &emp->idUtilisateur);
 
+    if (userExists(emp->idUtilisateur) == 0) {
+        printf("Erreur : cet utilisateur n'existe pas.\n");
+        return 0;
+    }
+
+    if (compterEmpruntsEnCours(emp->idUtilisateur) >= 3) {
+        printf("Erreur : cet utilisateur a deja 3 emprunts en cours (maximum autorise).\n");
+        return 0;
+    }
+
     printf("Entrez l'ID du livre : ");
     scanf("%d", &emp->idLivre);
 
+    Book livre;
+    if (rechercheLivreParId(emp->idLivre, &livre) == 0) {
+        printf("Erreur : ce livre n'existe pas.\n");
+        return 0;
+    }
+
+    if (livre.nombreExemplairesDisponibles <= 0) {
+        printf("Erreur : ce livre n'a plus d'exemplaires disponibles.\n");
+        return 0;
+    }
+
+    emp->id = obtenirProchainIDEmprunt();
+    printf("ID attribue (auto) : %d\n", emp->id);
     strcpy(emp->etat, "EN_COURS");
     genererNumeroEmpruntManuel(emp);
+
+    mettreAJourStock(emp->idLivre, -1);
+
+    return 1;
 }
 
 void enregistrerEmprunt(Borrow emp) {
-    FILE *file = fopen("../DATABASE/BORROWS.dat", "ab");
+    FILE *file = fopen("DATABASE/BORROWS.dat", "ab");
     if (file == NULL) {
         printf("Erreur : Impossible d'ouvrir DATABASE/BORROWS.dat !\n");
         return;
@@ -88,14 +130,35 @@ void enregistrerEmprunt(Borrow emp) {
     fclose(file);
     printf("L'emprunt a ete enregistre avec succes !\n");
 }
+void genererRecuEmprunt(Borrow emp, const char *loginUtilisateur) {
+    char chemin[150];
+    sprintf(chemin, "REPORTS/BORROWS/BORROW_%s_%s.txt",
+            emp.numeroEmprunt + 4, loginUtilisateur);
+    /* emp.numeroEmprunt commence par "EMP_", on saute ces 4 caracteres avec +4 */
 
-void afficherTousLesEmprunts() {
-    FILE *file = fopen("../DATABASE/BORROWS.dat", "rb");
-    if (file == NULL) {
-        printf("Erreur : Impossible d'ouvrir DATABASE/BORROWS.dat !\n");
+    FILE *f = fopen(chemin, "w");
+    if (f == NULL) {
+        printf("Erreur : impossible de creer le recu d'emprunt.\n");
         return;
     }
 
+    fprintf(f, "===== RECU D'EMPRUNT =====\n");
+    fprintf(f, "Numero d'emprunt : %s\n", emp.numeroEmprunt);
+    fprintf(f, "Date d'emprunt : %s\n", emp.dateEmprunt);
+    fprintf(f, "Date prevue de retour : %s\n", emp.dateRetourPrevue);
+    fprintf(f, "ID Livre : %d\n", emp.idLivre);
+    fprintf(f, "ID Utilisateur : %d\n", emp.idUtilisateur);
+
+    fclose(f);
+    printf("Recu genere : %s\n", chemin);
+}
+
+void afficherTousLesEmprunts() {
+    FILE *file = fopen("DATABASE/BORROWS.dat", "rb");
+    if (file == NULL) {
+        printf("Aucun emprunt enregistre pour le moment.\n");
+        return;
+    }
     Borrow emp;
     printf("\n--- LISTE DES EMPRUNTS ---\n");
     while (fread(&emp, sizeof(Borrow), 1, file) == 1) {

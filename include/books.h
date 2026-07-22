@@ -11,7 +11,7 @@ int rechercheLivreParId(int id, Book *resultat);
 void afficherTousLesLivres();
 int mettreAJourStock(int idLivre, int qnt);
 Book saisirLivre();
+int supprimerLivre(int id);
 
+#endif
 
-#endif // BOOKS_H_INCLUDED
-\

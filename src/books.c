@@ -37,11 +37,8 @@ int isbnExiste(char* isbn){
     Book parcourir;
     f=fopen(FICHIER_LIVRES, "rb");
     if (f==NULL){
-        printf("Le fichier n'a pas bien etait ouvrir");
         return 0;
     }
-    else {
-        printf("Le fichier a bien etait ouvrir");
     while(fread(&parcourir, sizeof(Book), 1,f)){
         if(strcmp(isbn ,parcourir.isbn)==0){
             fclose(f);
@@ -50,7 +47,6 @@ int isbnExiste(char* isbn){
     }
     fclose(f);
     return 0;
-    }
 }
 
 
@@ -59,11 +55,8 @@ int livreExisteParId(int id){
     Book parcourir;
     f=fopen(FICHIER_LIVRES, "rb");
     if (f==NULL){
-        printf("Le fichier n'a pas bien etait ouvrir");
         return 0;
     }
-    else {
-        printf("Le fichier a bien etait ouvrir");
     while(fread(&parcourir, sizeof(Book), 1,f)){
         if(parcourir.id == id){
             fclose(f);
@@ -72,7 +65,6 @@ int livreExisteParId(int id){
     }
     fclose(f);
     return 0;
-    }
 }
 
 int ajouterLivre(Book livre){
@@ -94,13 +86,16 @@ int ajouterLivre(Book livre){
     int nb = 0;
 
     f = fopen(FICHIER_LIVRES, "rb");
+    int dernierId = 0;
     if (f != NULL) {
         while (fread(&temp, sizeof(Book), 1, f)) {
-            nb++;
+            if (temp.id > dernierId) {
+                dernierId = temp.id;
+            }
         }
         fclose(f);
     }
-    livre.id = nb + 1;
+    livre.id = dernierId + 1;
 
     f = fopen(FICHIER_LIVRES, "ab");
     if (f == NULL) {
@@ -249,4 +244,34 @@ Book saisirLivre() {
     strcpy(livre.dateAjout, "21/07/2026");
 
     return livre;
+}
+int supprimerLivre(int id) {
+    if (livreExisteParId(id) == 0) {
+        printf("Aucun livre trouve avec cet id.\n");
+        return 0;
+    }
+
+    FILE *ancienFichier = fopen(FICHIER_LIVRES, "rb");
+    FILE *nouveauFichier = fopen("DATABASE/BOOKS_TEMP.dat", "wb");
+
+    if (ancienFichier == NULL || nouveauFichier == NULL) {
+        printf("Erreur : impossible d'ouvrir les fichiers.\n");
+        return 0;
+    }
+
+    Book temp;
+    while (fread(&temp, sizeof(Book), 1, ancienFichier) == 1) {
+        if (temp.id != id) {
+            fwrite(&temp, sizeof(Book), 1, nouveauFichier);
+        }
+    }
+
+    fclose(ancienFichier);
+    fclose(nouveauFichier);
+
+    remove(FICHIER_LIVRES);
+    rename("DATABASE/BOOKS_TEMP.dat", FICHIER_LIVRES);
+
+    printf("Livre supprime avec succes !\n");
+    return 1;
 }

@@ -4,6 +4,9 @@
 #include "../include/statistiques.h"
 #include "../include/penalites.h"
 #include "../include/structs.h"
+#include "../include/books.h"
+#include "../include/structureutilisateur.h"
+
 
 /*---------------------------------------
     Nombre d'emprunts
@@ -156,11 +159,107 @@ void genererRapportJournalier()
     fprintf(f, "Nombre de nouveaux utilisateurs : %d\n", nombreUtilisateurs());
     fprintf(f, "Nombre de penalites : %d\n", nombrePenalites()); // Utilise la fonction de penalites.c
     fprintf(f, "Montant total des penalites : %d FCFA\n", montantTotalPenalites());
-    fprintf(f, "\nLivre le plus emprunte : Non calcule");
-    fprintf(f, "\nUtilisateur le plus actif : Non calcule");
+    int idLivreTop = livreLePlusEmprunte();
+    if (idLivreTop != -1) {
+    Book livreTop;
+    if (rechercheLivreParId(idLivreTop, &livreTop) == 1) {
+        fprintf(f, "\nLivre le plus emprunte : %s (id %d)", livreTop.titre, idLivreTop);
+    } else {
+        fprintf(f, "\nLivre le plus emprunte : id %d", idLivreTop);
+    }
+    } else {
+    fprintf(f, "\nLivre le plus emprunte : Aucun emprunt enregistre");
+    }
+
+    int idUserTop = utilisateurLePlusActif();
+    if (idUserTop != -1) {
+    User userTop;
+    if (rechercherUtilisateurParId(idUserTop, &userTop) == 1) {
+        fprintf(f, "\nUtilisateur le plus actif : %s %s (id %d)", userTop.prenom, userTop.nom, idUserTop);
+    } else {
+        fprintf(f, "\nUtilisateur le plus actif : id %d", idUserTop);
+    }
+    } else {
+    fprintf(f, "\nUtilisateur le plus actif : Aucun emprunt enregistre");
+    }
     fprintf(f, "\n\n========================================");
 
     fclose(f);
 
     printf("\nRapport journalier genere avec succes dans %s.\n", chemin);
+}
+int livreLePlusEmprunte() {
+    FILE *f = fopen("DATABASE/BORROWS.dat", "rb");
+    if (f == NULL) return -1;
+
+    Borrow emp;
+    int idsLivres[1000];
+    int compteurs[1000];
+    int nbLivresDifferents = 0;
+
+    while (fread(&emp, sizeof(Borrow), 1, f) == 1) {
+        int trouve = 0;
+        for (int i = 0; i < nbLivresDifferents; i++) {
+            if (idsLivres[i] == emp.idLivre) {
+                compteurs[i]++;
+                trouve = 1;
+                break;
+            }
+        }
+        if (trouve == 0 && nbLivresDifferents < 1000) {
+            idsLivres[nbLivresDifferents] = emp.idLivre;
+            compteurs[nbLivresDifferents] = 1;
+            nbLivresDifferents++;
+        }
+    }
+    fclose(f);
+
+    if (nbLivresDifferents == 0) return -1;
+
+    int indexMax = 0;
+    for (int i = 1; i < nbLivresDifferents; i++) {
+        if (compteurs[i] > compteurs[indexMax]) {
+            indexMax = i;
+        }
+    }
+
+    return idsLivres[indexMax];
+}
+
+int utilisateurLePlusActif() {
+    FILE *f = fopen("DATABASE/BORROWS.dat", "rb");
+    if (f == NULL) return -1;
+
+    Borrow emp;
+    int idsUsers[1000];
+    int compteurs[1000];
+    int nbUsersDifferents = 0;
+
+    while (fread(&emp, sizeof(Borrow), 1, f) == 1) {
+        int trouve = 0;
+        for (int i = 0; i < nbUsersDifferents; i++) {
+            if (idsUsers[i] == emp.idUtilisateur) {
+                compteurs[i]++;
+                trouve = 1;
+                break;
+            }
+        }
+        if (trouve == 0 && nbUsersDifferents < 1000) {
+            idsUsers[nbUsersDifferents] = emp.idUtilisateur;
+            compteurs[nbUsersDifferents] = 1;
+            nbUsersDifferents++;
+        }
+    }
+    fclose(f);
+
+    if (nbUsersDifferents == 0) return -1;
+
+    int indexMax = 0;
+    for (int i = 1; i < nbUsersDifferents; i++) {
+        if (compteurs[i] > compteurs[indexMax]) {
+            indexMax = i;
+        }
+    }
+
+    return idsUsers[indexMax];
 }
