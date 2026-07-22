@@ -7,7 +7,6 @@ void ajouterCategorie() {
     Category c;
     FILE *fichier;
 
-    /* On calcule le nouvel id : on ouvre le fichier en lecture pour compter combien il y a deja de categories */
    fichier = fopen(FICHIER_CATEGORIES, "rb");
     int dernierId = 0;
 
@@ -22,11 +21,10 @@ void ajouterCategorie() {
     }
 
     c.id = dernierId + 1;
-    /* On demande les informations a l'utilisateur */
+
     printf("\n--- Ajout d'une nouvelle categorie ---\n");
 
     printf("Libelle : ");
-    getchar();
     fgets(c.libelle, sizeof(c.libelle), stdin);
     c.libelle[strcspn(c.libelle, "\n")] = '\0';
 
@@ -38,7 +36,6 @@ void ajouterCategorie() {
     fgets(c.dateCreation, sizeof(c.dateCreation), stdin);
     c.dateCreation[strcspn(c.dateCreation, "\n")] = '\0';
 
-    /* On ouvre le fichier en mode "ajout" pour ecrire la nouvelle categorie a la fin */
     fichier = fopen(FICHIER_CATEGORIES, "ab");
     if (fichier == NULL) {
         printf("Erreur : impossible d'ouvrir le fichier.\n");
@@ -107,6 +104,7 @@ void modifierCategorie() {
     printf("\n--- Modifier une categorie ---\n");
     printf("Entrez l'id de la categorie a modifier : ");
     scanf("%d", &idRecherche);
+    getchar();
 
     int trouve = rechercherCategorieParId(idRecherche, &c);
 
@@ -118,7 +116,6 @@ void modifierCategorie() {
     printf("Categorie trouvee : %s\n", c.libelle);
 
     printf("Nouveau libelle : ");
-    getchar();
     fgets(c.libelle, sizeof(c.libelle), stdin);
     c.libelle[strcspn(c.libelle, "\n")] = '\0';
 
@@ -129,7 +126,6 @@ void modifierCategorie() {
     fgets(c.dateCreation, sizeof(c.dateCreation), stdin);
     c.dateCreation[strcspn(c.dateCreation, "\n")] = '\0';
 
-    /* On ouvre le fichier en mode "rb+" pour pouvoir lire ET ecrire au meme endroit */
     FILE *fichier = fopen(FICHIER_CATEGORIES, "rb+");
     if (fichier == NULL) {
         printf("Erreur : impossible d'ouvrir le fichier.\n");
@@ -142,7 +138,6 @@ void modifierCategorie() {
 
     while (fread(&temp, sizeof(Category), 1, fichier) == 1) {
         if (temp.id == idRecherche) {
-            /* On recule le "curseur" du fichier pour se replacer au debut de cet enregistrement */
             fseek(fichier, position * sizeof(Category), SEEK_SET);
             fwrite(&c, sizeof(Category), 1, fichier);
             trouvePourEcriture = 1;
@@ -185,7 +180,6 @@ void supprimerCategorie() {
     Category temp;
     while (fread(&temp, sizeof(Category), 1, ancienFichier) == 1) {
         if (temp.id != idASupprimer) {
-            /* On recopie dans le nouveau fichier seulement si ce n'est PAS la categorie a supprimer */
             fwrite(&temp, sizeof(Category), 1, nouveauFichier);
         }
     }
@@ -193,7 +187,6 @@ void supprimerCategorie() {
     fclose(ancienFichier);
     fclose(nouveauFichier);
 
-    /* On supprime l'ancien fichier, puis on renomme le nouveau avec le bon nom */
     remove(FICHIER_CATEGORIES);
     rename("DATABASE/CATEGORIES_TEMP.dat", FICHIER_CATEGORIES);
 

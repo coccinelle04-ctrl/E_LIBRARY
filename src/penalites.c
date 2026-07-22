@@ -23,7 +23,7 @@ int genererIdPenalite()
 
 int calculerMontantPenalite(int joursRetard)
 {
-    return joursRetard * 500; // 500 FCFA par jour de retard[span_0](start_span)[span_0](end_span)
+    return joursRetard * 500;
 }
 
 void ajouterPenalite(int idUtilisateur,
@@ -44,7 +44,7 @@ void ajouterPenalite(int idUtilisateur,
     p.idUtilisateur = idUtilisateur;
     p.idEmprunt = idEmprunt;
     p.nombreJoursRetard = joursRetard;
-    p.montant = calculerMontantPenalite(joursRetard); // Calcul automatique intégré
+    p.montant = calculerMontantPenalite(joursRetard);
 
     time_t t = time(NULL);
     struct tm *date = localtime(&t);
@@ -56,7 +56,6 @@ void ajouterPenalite(int idUtilisateur,
     fwrite(&p, sizeof(Penalty), 1, f);
     fclose(f);
 
-    // Enregistrement de l'action dans le journal d'audit
     FILE *fHistory = fopen("REPORTS/HISTORY.txt", "a");
     if (fHistory != NULL) {
         fprintf(fHistory, "[%02d/%02d/%04d %02d:%02d:%02d] SYSTEM Ajout d'une pénalité de %d FCFA\n",

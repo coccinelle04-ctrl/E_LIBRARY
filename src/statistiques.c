@@ -8,9 +8,6 @@
 #include "../include/structureutilisateur.h"
 
 
-/*---------------------------------------
-    Nombre d'emprunts
----------------------------------------*/
 int nombreEmprunts()
 {
     FILE *f;
@@ -32,9 +29,6 @@ int nombreEmprunts()
     return compteur;
 }
 
-/*---------------------------------------
-    Nombre de retours
----------------------------------------*/
 int nombreRetours()
 {
     FILE *f;
@@ -56,9 +50,6 @@ int nombreRetours()
     return compteur;
 }
 
-/*---------------------------------------
-    Nombre de réservations
----------------------------------------*/
 int nombreReservations()
 {
     FILE *f;
@@ -80,9 +71,6 @@ int nombreReservations()
     return compteur;
 }
 
-/*---------------------------------------
-    Nombre d'utilisateurs
----------------------------------------*/
 int nombreUtilisateurs()
 {
     FILE *f;
@@ -104,9 +92,6 @@ int nombreUtilisateurs()
     return compteur;
 }
 
-/*---------------------------------------
-    Montant total des pénalités
----------------------------------------*/
 int montantTotalPenalites()
 {
     FILE *f;
@@ -128,9 +113,6 @@ int montantTotalPenalites()
     return total;
 }
 
-/*---------------------------------------
-    Générer le rapport journalier
----------------------------------------*/
 void genererRapportJournalier()
 {
     FILE *f;
@@ -138,7 +120,6 @@ void genererRapportJournalier()
     time_t t = time(NULL);
     struct tm *date = localtime(&t);
 
-    // Génération du nom de fichier dynamique au format REPORT_AAAAMMJJ.txt[span_0](start_span)[span_0](end_span)
     sprintf(chemin, "REPORTS/DAILY/REPORT_%04d%02d%02d.txt",
             date->tm_year + 1900,
             date->tm_mon + 1,
@@ -157,7 +138,7 @@ void genererRapportJournalier()
     fprintf(f, "Nombre de retours : %d\n", nombreRetours());
     fprintf(f, "Nombre de reservations : %d\n", nombreReservations());
     fprintf(f, "Nombre de nouveaux utilisateurs : %d\n", nombreUtilisateurs());
-    fprintf(f, "Nombre de penalites : %d\n", nombrePenalites()); // Utilise la fonction de penalites.c
+    fprintf(f, "Nombre de penalites : %d\n", nombrePenalites());
     fprintf(f, "Montant total des penalites : %d FCFA\n", montantTotalPenalites());
     int idLivreTop = livreLePlusEmprunte();
     if (idLivreTop != -1) {

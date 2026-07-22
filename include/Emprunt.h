@@ -3,7 +3,7 @@
 #include "structs.h"
 
 void genererNumeroEmpruntManuel(Borrow *emp);
-int saisirEmprunt(Borrow *emp); /* retourne 1 si l'emprunt est valide, 0 sinon */
+int saisirEmprunt(Borrow *emp);
 void enregistrerEmprunt(Borrow emp);
 void afficherTousLesEmprunts();
 void genererRecuEmprunt(Borrow emp, const char *loginUtilisateur);

@@ -9,7 +9,6 @@ void ajouterAuteur() {
     Author a;
     FILE *fichier;
 
-    /* On calcule le nouvel id en comptant les auteurs deja presents */
    fichier = fopen(FICHIER_AUTEURS, "rb");
     int dernierId = 0;
 
@@ -28,7 +27,6 @@ void ajouterAuteur() {
     printf("\n--- Ajout d'un nouvel auteur ---\n");
 
     printf("Nom complet : ");
-    getchar();
     fgets(a.nomComplet, sizeof(a.nomComplet), stdin);
     a.nomComplet[strcspn(a.nomComplet, "\n")] = '\0';
 
@@ -47,7 +45,6 @@ void ajouterAuteur() {
     printf("Nombre de livres publies : ");
     scanf("%d", &a.nombreLivresPublies);
 
-    /* On ouvre le fichier en mode "ajout" pour ecrire le nouvel auteur a la fin */
     fichier = fopen(FICHIER_AUTEURS, "ab");
     if (fichier == NULL) {
         printf("Erreur : impossible d'ouvrir le fichier.\n");
@@ -116,6 +113,7 @@ void modifierAuteur() {
     printf("\n--- Modifier un auteur ---\n");
     printf("Entrez l'id de l'auteur a modifier : ");
     scanf("%d", &idRecherche);
+    getchar();
 
     int trouve = rechercherAuteurParId(idRecherche, &a);
 
@@ -127,7 +125,6 @@ void modifierAuteur() {
     printf("Auteur trouve : %s\n", a.nomComplet);
 
     printf("Nouveau nom complet : ");
-    getchar();
     fgets(a.nomComplet, sizeof(a.nomComplet), stdin);
     a.nomComplet[strcspn(a.nomComplet, "\n")] = '\0';
 
@@ -145,7 +142,6 @@ void modifierAuteur() {
     printf("Nouveau nombre de livres publies : ");
     scanf("%d", &a.nombreLivresPublies);
 
-    /* On ouvre le fichier en mode "rb+" pour pouvoir lire ET ecrire au meme endroit */
     FILE *fichier = fopen(FICHIER_AUTEURS, "rb+");
     if (fichier == NULL) {
         printf("Erreur : impossible d'ouvrir le fichier.\n");

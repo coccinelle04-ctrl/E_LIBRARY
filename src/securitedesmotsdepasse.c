@@ -6,15 +6,14 @@
 void crypterMotDePasse(const char *motDePasseClair, char *motDePasseCrypte) {
     if (motDePasseClair == NULL || motDePasseCrypte == NULL) return;
 
-    // Masque de chiffrement XOR basique
-    char cle = 'K'; 
+    char cle = 'K';
     int i = 0;
-    
+
     while (motDePasseClair[i] != '\0') {
         motDePasseCrypte[i] = motDePasseClair[i] ^ cle;
         i++;
     }
-    motDePasseCrypte[i] = '\0'; // Fin de chaîne
+    motDePasseCrypte[i] = '\0';
 }
 
 int verifierPremiereConnexion(const User *utilisateur) {
@@ -25,10 +24,8 @@ int verifierPremiereConnexion(const User *utilisateur) {
 int changerMotDePasse(User *utilisateur, const char *nouveauMotDePasse) {
     if (utilisateur == NULL || nouveauMotDePasse == NULL) return 0;
 
-    // Cryptage du nouveau mot de passe
     crypterMotDePasse(nouveauMotDePasse, utilisateur->motDePasse);
-    
-    // Mise à jour du flag : ce n'est plus sa première connexion
+
     utilisateur->doitChangerMotDePasse = 0;
 
     return 1;
