@@ -5,9 +5,9 @@ int nombreEmprunts();
 int nombreRetours();
 int nombreReservations();
 int nombreUtilisateurs();
-int nombrePenalites();
 int montantTotalPenalites();
-
 void genererRapportJournalier();
+int livreLePlusEmprunte();
+int utilisateurLePlusActif();
 
 #endif

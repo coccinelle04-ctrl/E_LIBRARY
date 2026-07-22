@@ -1,0 +1,6 @@
+===== RECU D'EMPRUNT =====
+Numero d'emprunt : EMP_20260722052353
+Date d'emprunt : 22/07/2026
+Date prevue de retour : 06/08/2026
+ID Livre : 2
+ID Utilisateur : 2

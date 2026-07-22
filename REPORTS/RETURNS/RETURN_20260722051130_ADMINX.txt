@@ -1,0 +1,6 @@
+===== RECU DE RETOUR =====
+ID Retour : 5
+Numero d'emprunt : EMP_20260722051346
+Date reelle de retour : 22/07/2026
+Jours de retard : 0
+Penalite : 0 FCFA

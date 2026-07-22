@@ -12,9 +12,10 @@ int genererIdPenalite()
     f = fopen("DATABASE/PENALTIES.dat", "rb");
     if (f == NULL)
         return 1;
-    while (fread(&p, sizeof(Penalty), 1, f) == 1)
-    {
-        dernierId = p.id;
+    while (fread(&p, sizeof(Penalty), 1, f) == 1) {
+        if (p.id > dernierId) {
+            dernierId = p.id;
+        }
     }
     fclose(f);
     return dernierId + 1;
@@ -64,7 +65,7 @@ void ajouterPenalite(int idUtilisateur,
         fclose(fHistory);
     }
 
-    printf("\nPénalité enregistrée avec succès.\n");
+    printf("\nPenalité enregistree avec succes.\n");
 }
 
 void afficherPenalites()
@@ -74,7 +75,7 @@ void afficherPenalites()
     f = fopen("DATABASE/PENALTIES.dat", "rb");
     if (f == NULL)
     {
-        printf("\nAucune pénalité enregistrée.\n");
+        printf("\nAucune penalite enregistree.\n");
         return;
     }
     printf("\n========== LISTE DES PENALITES ==========\n");

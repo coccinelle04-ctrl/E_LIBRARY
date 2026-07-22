@@ -56,7 +56,6 @@ int creerReservation(int idUtilisateur, int idLivre){
     FILE *f;
     Reservation temp;
     int nb = 0;
-
     f = fopen(FICHIER_RESERVATIONS, "rb");
     if (f != NULL) {
         while (fread(&temp, sizeof(Reservation), 1, f)) {
@@ -64,7 +63,6 @@ int creerReservation(int idUtilisateur, int idLivre){
         }
         fclose(f);
     }
-
     Reservation nouvelle;
     nouvelle.id = nb + 1;
     nouvelle.idUtilisateur = idUtilisateur;

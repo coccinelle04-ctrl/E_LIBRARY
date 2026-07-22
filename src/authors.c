@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "../include/authors.h"
+#include "books.h"
 
 #define FICHIER_AUTEURS "DATABASE/AUTHORS.dat"
 
@@ -9,18 +10,20 @@ void ajouterAuteur() {
     FILE *fichier;
 
     /* On calcule le nouvel id en comptant les auteurs deja presents */
-    fichier = fopen(FICHIER_AUTEURS, "rb");
-    int nombreAuteurs = 0;
+   fichier = fopen(FICHIER_AUTEURS, "rb");
+    int dernierId = 0;
 
     if (fichier != NULL) {
         Author temp;
         while (fread(&temp, sizeof(Author), 1, fichier) == 1) {
-            nombreAuteurs++;
+            if (temp.id > dernierId) {
+                dernierId = temp.id;
+            }
         }
         fclose(fichier);
     }
 
-    a.id = nombreAuteurs + 1;
+    a.id = dernierId + 1;
 
     printf("\n--- Ajout d'un nouvel auteur ---\n");
 
@@ -131,6 +134,9 @@ void modifierAuteur() {
     printf("Nouvelle nationalite : ");
     fgets(a.nationalite, sizeof(a.nationalite), stdin);
     a.nationalite[strcspn(a.nationalite, "\n")] = '\0';
+    printf("Nouvelle date de naissance (JJ/MM/AAAA) : ");
+    fgets(a.dateNaissance, sizeof(a.dateNaissance), stdin);
+    a.dateNaissance[strcspn(a.dateNaissance, "\n")] = '\0';
 
     printf("Nouvelle biographie : ");
     fgets(a.biographie, sizeof(a.biographie), stdin);
@@ -169,6 +175,26 @@ void modifierAuteur() {
     }
 }
 
+int auteurAdesLivres(int idAuteur) {
+    FILE *fichier;
+    Book b;
+
+    fichier = fopen("DATABASE/BOOKS.dat", "rb");
+    if (fichier == NULL) {
+        return 0;
+    }
+
+    while (fread(&b, sizeof(Book), 1, fichier) == 1) {
+        if (b.idAuteur == idAuteur) {
+            fclose(fichier);
+            return 1;
+        }
+    }
+
+    fclose(fichier);
+    return 0;
+}
+
 void supprimerAuteur() {
     int idASupprimer;
     Author a;
@@ -183,20 +209,10 @@ void supprimerAuteur() {
         return;
     }
 
-    /* ============================================================
-       CONTRAINTE D'INTEGRITE (a completer plus tard)
-       Un auteur ne peut etre supprime que si aucun livre ne lui
-       est associe. Cette verification necessite le module Livres
-       (fait par Fatou Ngom), qui n'existe pas encore.
-
-       Quand son module sera pret, on ajoutera ici quelque chose
-       comme :
-
-       if (auteurAdesLivres(idASupprimer) == 1) {
-           printf("Impossible de supprimer : des livres sont encore associes a cet auteur.\n");
-           return;
-       }
-       ============================================================ */
+    if (auteurAdesLivres(idASupprimer) == 1) {
+    printf("Impossible de supprimer : des livres sont encore associes a cet auteur.\n");
+    return;
+    }
 
     FILE *ancienFichier = fopen(FICHIER_AUTEURS, "rb");
     FILE *nouveauFichier = fopen("DATABASE/AUTHORS_TEMP.dat", "wb");

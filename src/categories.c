@@ -8,19 +8,20 @@ void ajouterCategorie() {
     FILE *fichier;
 
     /* On calcule le nouvel id : on ouvre le fichier en lecture pour compter combien il y a deja de categories */
-    fichier = fopen(FICHIER_CATEGORIES, "rb");
-    int nombreCategories = 0;
+   fichier = fopen(FICHIER_CATEGORIES, "rb");
+    int dernierId = 0;
 
     if (fichier != NULL) {
         Category temp;
         while (fread(&temp, sizeof(Category), 1, fichier) == 1) {
-            nombreCategories++;
+            if (temp.id > dernierId) {
+                dernierId = temp.id;
+            }
         }
         fclose(fichier);
     }
 
-    c.id = nombreCategories + 1;
-
+    c.id = dernierId + 1;
     /* On demande les informations a l'utilisateur */
     printf("\n--- Ajout d'une nouvelle categorie ---\n");
 
@@ -124,6 +125,9 @@ void modifierCategorie() {
     printf("Nouvelle description : ");
     fgets(c.description, sizeof(c.description), stdin);
     c.description[strcspn(c.description, "\n")] = '\0';
+    printf("Nouvelle date de creation (JJ/MM/AAAA) : ");
+    fgets(c.dateCreation, sizeof(c.dateCreation), stdin);
+    c.dateCreation[strcspn(c.dateCreation, "\n")] = '\0';
 
     /* On ouvre le fichier en mode "rb+" pour pouvoir lire ET ecrire au meme endroit */
     FILE *fichier = fopen(FICHIER_CATEGORIES, "rb+");

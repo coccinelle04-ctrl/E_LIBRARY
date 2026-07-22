@@ -1,0 +1,13 @@
+========== RAPPORT JOURNALIER ==========
+
+Nombre d'emprunts : 10
+Nombre de retours : 5
+Nombre de reservations : 0
+Nombre de nouveaux utilisateurs : 2
+Nombre de penalites : 0
+Montant total des penalites : 0 FCFA
+
+Livre le plus emprunte : Les Miserables (id 2)
+Utilisateur le plus actif : Massamba Ndiaye (id 1)
+
+========================================
